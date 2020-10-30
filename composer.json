@@ -1,0 +1,40 @@
+{
+    "name": "hamworks/wp-wp-boilerplate",
+    "description": "",
+    "license": "GPL-2.0-or-later",
+    "type": "project",
+    "minimum-stability": "stable",
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://wpackagist.org"
+        }
+    ],
+    "require": {
+        "php": ">=7.0"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.3",
+        "dealerdirect/phpcodesniffer-composer-installer": "*",
+        "wp-coding-standards/wpcs": "^1.1"
+    },
+    "extra": {
+        "installer-paths": {
+            "htdocs/wp-content/mu-plugins/{$name}": [
+                "type:wordpress-muplugin"
+            ],
+            "htdocs/wp-content/plugins/{$name}": [
+                "type:wordpress-plugin"
+            ],
+            "htdocs/wp-content/themes/{$name}": [
+                "type:wordpress-theme"
+            ]
+        },
+        "wordpress-install-dir": "htdocs/wp"
+    },
+    "scripts" : {
+        "format": "phpcbf --standard=./.phpcs.xml.dist --report-summary --report-source",
+        "lint": "phpcs --standard=./.phpcs.xml.dist",
+        "phpcs": "phpcs --standard=./.phpcs.xml.dist"
+    }
+}

@@ -1,0 +1,60 @@
+{
+    "name": "@hamworks/wp-wp-boilerplate",
+    "version": "1.0.0",
+    "description": "",
+    "scripts": {
+        "env": "wp-env",
+        "bs": "browser-sync start --config bs-config.js",
+        "start": "npm run bs & npm run start:theme",
+        "build": "NODE_ENV=production npm run build:theme",
+        "format-js": "wp-scripts format-js ./wp-content",
+        "lint-style": "wp-scripts lint-style ./wp-content/**/*.css",
+        "lint-php": "./vendor/bin/phpcs --standard=./.phpcs.xml.dist",
+        "lint-style:fix": "wp-scripts lint-style ./wp-content/**/*.css --fix",
+        "lint-js": "wp-scripts lint-js ./wp-content --fix",
+        "lint-js:fix": "wp-scripts lint-js ./wp-content",
+        "build:theme": "wp-scripts build ./wp-content/themes/wp-boilerplate/src/index.js --output-path=./wp-content/themes/wp-boilerplate/build",
+        "start:theme": "wp-scripts start ./wp-content/themes/wp-boilerplate/src/index.js --output-path=./wp-content/themes/wp-boilerplate/build"
+    },
+    "devDependencies": {
+        "@wordpress/browserslist-config": "^2.7.0",
+        "@wordpress/env": "^1.6.0",
+        "@wordpress/eslint-plugin": "^7.1.0",
+        "@wordpress/prettier-config": "^0.3.0",
+        "@wordpress/scripts": "^12.1.1",
+        "browser-sync": "2.26.12",
+        "cssnano": "^4.1.10",
+        "husky": "^4.2.5",
+        "lint-staged": "^10.2.11",
+        "postcss-import": "^12.0.1",
+        "postcss-import-resolver": "^2.0.0",
+        "postcss-omit-import-tilde": "^1.0.1",
+        "postcss-preset-env": "^6.7.0",
+        "postcss-pxtorem": "^5.1.1",
+        "prettier": "npm:wp-prettier@2.0.5",
+        "stylelint-config-wordpress": "^17.0.0"
+    },
+    "dependencies": {
+        "normalize.css": "^8.0.1"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    },
+    "lint-staged": {
+        "packages/*/package.json": [
+            "wp-scripts lint-pkg-json"
+        ],
+        "{*.css,*.scss}": [
+            "npm run lint-style"
+        ],
+        "*.js": [
+            "npm run format-js",
+            "npm run lint-js"
+        ],
+        "*.php": [
+            "npm run lint-php"
+        ]
+    }
+}
